@@ -15,6 +15,10 @@ $(document).ready(function() {
             $('#scrollTop').fadeOut();
         }
     });
+    $('#signupModal').modal({
+        backdrop: 'static',
+        keyboard: false
+    });
 
     // Scroll to top on button click
     $('#scrollTop').click(function() {
