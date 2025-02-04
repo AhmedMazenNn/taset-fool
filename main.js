@@ -6,6 +6,13 @@ $(document).ready(function() {
             scrollTop: $($(this).attr('href')).offset().top
         }, 1000);
     });
+    $(window).scroll(function() {
+        if ($(this).scrollTop() > 100) {
+            $('.header').addClass('sticky');
+        } else {
+            $('.header').removeClass('sticky');
+        }
+    });
 
     // Show or hide "Scroll to Top" button
     $(window).scroll(function() {
@@ -45,6 +52,7 @@ $(document).ready(function() {
             Validator.passwordValidation(password)
         ) {
             alert("All validations passed! Form can be submitted.");
+            $('#signupModal').modal('hide');
         }
     });
 });
