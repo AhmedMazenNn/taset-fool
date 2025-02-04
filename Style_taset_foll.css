@@ -44,14 +44,6 @@ i {
     transition: var(--main-transition);
 }
 
-.sticky {
-    position: fixed;
-    top: 0;
-    width: 100%;
-    z-index: 999;
-    opacity: 0.9;
-}
-
 .main-title:hover {
     color: white;
     border-color: white;
@@ -172,6 +164,12 @@ ul {
 
 .header .logo img {
     width: 100px;
+    margin-top: 15px;
+}
+
+#signupModal span,
+#signinModal span {
+    cursor: pointer;
 }
 
 .header .nav {
