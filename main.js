@@ -1,5 +1,3 @@
-import { failurMessage, successMassage } from "./messages.js";
-
 $(document).ready(function() {
     $('.nav a').click(function(e) {
         e.preventDefault();
@@ -34,7 +32,7 @@ class Validator {
         if (nameRegex.test(name)) {
             return 1;
         } else {
-            return "Not valid Validator name";
+            alert("Not valid Validator name");
         }
     }
 
@@ -43,11 +41,11 @@ class Validator {
         if (passwordRegex.test(password)) {
             return 1;
         } else {
-            return `Password not valid:
+            alert(`Password not valid:
                     1-At least 6 characters long
                     2-Contains at least one letter
                     3-Contains at least one digit
-            `;
+            `);
         }
     }
 
@@ -61,7 +59,7 @@ class Validator {
         if (phoneRegex.test(phone)) {
             return 1;
         } else {
-            return "Not valid phone number";
+            alert("Not valid phone number");
         }
     }
 
@@ -70,7 +68,7 @@ class Validator {
         if (addressRegex.test(address)) {
             return 1;
         } else {
-            return "Not valid address";
+            alert("Not valid address");
         }
     }
 
@@ -78,7 +76,7 @@ class Validator {
         if (age >= 15 && age <= 120) {
             return 1;
         } else {
-            return "You need to be older than 15 years old to sign up";
+            alert("You need to be older than 15 years old to sign up");
         }
     }
 }
