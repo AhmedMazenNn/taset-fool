@@ -141,6 +141,12 @@ body.showCart .cartTab {
     right: 0;
 }
 
+@media screen and (max-width: 768px) {
+    .cartTab {
+        width: 100%;
+    }
+}
+
 body.showCart .container {
     transform: translateX(-250px);
 }
@@ -178,6 +184,13 @@ body.showCart .container {
     gap: 10px;
     text-align: center;
     align-items: center;
+}
+
+@media screen and (max-width: 768px) {
+    .listCart .item {
+        grid-template-columns: 70px 100px 15px 1fr;
+        gap: 0px;
+    }
 }
 
 .listCart .quantity span {

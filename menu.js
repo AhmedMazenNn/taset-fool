@@ -21,6 +21,9 @@ $('.listProduct').on('click', '.addCart', function() {
 
     alert(`${productName} added to cart`);
     $(this).css({ backgroundColor: 'var(--alt-color)', color: '#fff' }).text('Added');
+    // if (cart == 0) {
+    //     $('.addCart').css({ backgroundColor: 'var(--main-color)', color: '#fff' }).text("Add To Cart");
+    // }
 });
 
 $('.icon-cart').on('click', () => {
