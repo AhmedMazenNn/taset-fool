@@ -6,13 +6,6 @@ $(document).ready(function() {
             scrollTop: $($(this).attr('href')).offset().top
         }, 1000);
     });
-    $(window).scroll(function() {
-        if ($(this).scrollTop() > 100) {
-            $('.header').addClass('sticky');
-        } else {
-            $('.header').removeClass('sticky');
-        }
-    });
 
     // Show or hide "Scroll to Top" button
     $(window).scroll(function() {
@@ -26,7 +19,20 @@ $(document).ready(function() {
         backdrop: 'static',
         keyboard: false
     });
-
+    $('#signinModal').modal({
+        backdrop: 'static',
+        keyboard: false
+    });
+    $('#home-btn').click(function() {
+        $('#signupModal').hide()
+        $('.modal-backdrop').remove();
+        $('body').removeAttr('style');
+    });
+    $('#signin-home-btn').click(function() {
+        $('#signinModal').hide()
+        $('.modal-backdrop').remove();
+        $('body').removeAttr('style');
+    });
     // Scroll to top on button click
     $('#scrollTop').click(function() {
         $('html, body').animate({ scrollTop: 0 }, 800);
