@@ -110,7 +110,15 @@ const changeQuantityCart = (product_id, type) => {
                 if (changeQuantity > 0) {
                     cart[positionItemInCart].quantity = changeQuantity;
                 } else {
-                    cart.splice(positionItemInCart, 1);
+                    // Notify the user before removing the last item
+                    let productName = products.find(product => product.id === product_id).name;
+                    let confirmRemoval = confirm(`Are you sure you want to remove the last ${productName} from your cart?`);
+                    if (confirmRemoval) {
+                        cart.splice(positionItemInCart, 1);
+                    } else {
+                        // If the user cancels, set the quantity back to 1
+                        cart[positionItemInCart].quantity = 1;
+                    }
                 }
                 break;
         }
