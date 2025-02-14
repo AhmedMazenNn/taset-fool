@@ -56,7 +56,6 @@ header {
 .icon-cart {
     position: relative;
 }
-
 .icon-cart span {
     position: absolute;
     background-color: red;
@@ -168,10 +167,18 @@ body.showCart .container {
     font-family: Poppins;
     font-weight: 500;
     cursor: pointer;
+    transition: all var(--main-transition);
+}
+.cartTab button:hover{
+    background-color: var(--alt-color);
 }
 
 .cartTab .close {
     background-color: #eee;
+    transition: all var(--main-transition);
+}
+.cartTab .close:hover{
+    background-color: rgb(245, 37, 37);
 }
 
 .listCart .item img {
