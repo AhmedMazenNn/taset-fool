@@ -5,32 +5,25 @@ const addDataToHTML = () => {
     if (products.length > 0) {
         $.each(products, (index, product) => {
             let newProduct = $(`
-                        <div class="item" data-id="${product.id}">
-                            <img src="${product.image}" alt="">
-                            <h2>${product.name}</h2>
-                            <div class="price">$${product.price}</div>
-                            <button class="addCart">Add To Cart</button>
-                        </div>
-                    `);
+                <div class="item" data-id="${product.id}">
+                    <img src="${product.image}" alt="">
+                    <h2>${product.name}</h2>
+                    <div class="price">$${product.price}</div>
+                    <button class="addCart">Add To Cart</button>
+                </div>
+            `);
             $('.listProduct').append(newProduct);
         });
     }
 };
+
 $('.listProduct').on('click', '.addCart', function() {
     let productName = $(this).closest('.item').find('h2').text();
-
     alert(`${productName} added to cart`);
     $(this).css({ backgroundColor: 'var(--alt-color)', color: '#fff' }).text('Added');
-    // if (cart == 0) {
-    //     $('.addCart').css({ backgroundColor: 'var(--main-color)', color: '#fff' }).text("Add To Cart");
-    // }
 });
 
-$('.icon-cart').on('click', () => {
-    $('body').toggleClass('showCart');
-});
-
-$('.close').on('click', () => {
+$('.icon-cart, .close').on('click', () => {
     $('body').toggleClass('showCart');
 });
 
@@ -41,16 +34,10 @@ $('.listProduct').on('click', '.addCart', function() {
 
 const addToCart = (product_id) => {
     let positionThisProductInCart = cart.findIndex(value => value.product_id == product_id);
-    if (cart.length <= 0) {
-        cart = [{
-            product_id: product_id,
-            quantity: 1
-        }];
+    if (cart.length === 0) {
+        cart = [{ product_id: product_id, quantity: 1 }];
     } else if (positionThisProductInCart < 0) {
-        cart.push({
-            product_id: product_id,
-            quantity: 1
-        });
+        cart.push({ product_id: product_id, quantity: 1 });
     } else {
         cart[positionThisProductInCart].quantity += 1;
     }
@@ -73,17 +60,17 @@ const addCartToHTML = () => {
             let info = products[positionProduct];
 
             let newItem = $(`
-                        <div class="item" data-id="${item.product_id}">
-                            <div class="image"><img src="${info.image}"></div>
-                            <div class="name">${info.name}</div>
-                            <div class="totalPrice">$${info.price * item.quantity}</div>
-                            <div class="quantity">
-                                <span class="minus"><</span>
-                                <span>${item.quantity}</span>
-                                <span class="plus">></span>
-                            </div>
-                        </div>
-                    `);
+                <div class="item" data-id="${item.product_id}">
+                    <div class="image"><img src="${info.image}"></div>
+                    <div class="name">${info.name}</div>
+                    <div class="totalPrice">$${info.price * item.quantity}</div>
+                    <div class="quantity">
+                        <span class="minus"><</span>
+                        <span>${item.quantity}</span>
+                        <span class="plus">></span>
+                    </div>
+                </div>
+            `);
             $('.listCart').append(newItem);
         });
     }
@@ -101,26 +88,21 @@ const changeQuantityCart = (product_id, type) => {
     let positionItemInCart = cart.findIndex(value => value.product_id == product_id);
     if (positionItemInCart >= 0) {
         let info = cart[positionItemInCart];
-        switch (type) {
-            case 'plus':
-                cart[positionItemInCart].quantity += 1;
-                break;
-            default:
-                let changeQuantity = cart[positionItemInCart].quantity - 1;
-                if (changeQuantity > 0) {
-                    cart[positionItemInCart].quantity = changeQuantity;
+        if (type === 'plus') {
+            cart[positionItemInCart].quantity += 1;
+        } else {
+            let changeQuantity = cart[positionItemInCart].quantity - 1;
+            if (changeQuantity > 0) {
+                cart[positionItemInCart].quantity = changeQuantity;
+            } else {
+                let productName = products.find(product => product.id === product_id).name;
+                let confirmRemoval = confirm(`Are you sure you want to remove the last ${productName} from your cart?`);
+                if (confirmRemoval) {
+                    cart.splice(positionItemInCart, 1);
                 } else {
-                    // Notify the user before removing the last item
-                    let productName = products.find(product => product.id === product_id).name;
-                    let confirmRemoval = confirm(`Are you sure you want to remove the last ${productName} from your cart?`);
-                    if (confirmRemoval) {
-                        cart.splice(positionItemInCart, 1);
-                    } else {
-                        // If the user cancels, set the quantity back to 1
-                        cart[positionItemInCart].quantity = 1;
-                    }
+                    cart[positionItemInCart].quantity = 1;
                 }
-                break;
+            }
         }
     }
     addCartToHTML();

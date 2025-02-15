@@ -6,51 +6,45 @@ $(document).ready(function() {
             scrollTop: $($(this).attr('href')).offset().top
         }, 1000);
     });
-    $('.dropdown').click(function () {
-        if ($(window).width() <= 767) { // Ensure it only applies on small screens
+
+    // Toggle navigation menu on small screens
+    $('.dropdown').click(function() {
+        if ($(window).width() <= 767) {
             $('.nav').toggleClass('show-nav');
         }
     });
 
-    // Reset display on window resize to avoid issues when switching screen sizes
-    $(window).resize(function () {
+    // Ensure navigation remains visible on larger screens
+    $(window).resize(function() {
         if ($(window).width() > 767) {
-            $('.nav').removeClass('show-nav'); // Ensure nav is always visible on large screens
+            $('.nav').removeClass('show-nav');
         }
     });
 
-    // Show or hide "Scroll to Top" button
+    // Show or hide "Scroll to Top" button based on scroll position
     $(window).scroll(function() {
-        if ($(this).scrollTop() > 200) {
-            $('#scrollTop').fadeIn();
-        } else {
-            $('#scrollTop').fadeOut();
-        }
+        $('#scrollTop').toggle($(this).scrollTop() > 200);
     });
-    $('#signupModal').modal({
+
+    // Configure modals to be static
+    $('#signupModal, #signinModal').modal({
         backdrop: 'static',
         keyboard: false
     });
-    $('#signinModal').modal({
-        backdrop: 'static',
-        keyboard: false
-    });
-    $('#home-btn').click(function() {
-        $('#signupModal').hide()
+
+    // Close modals and reset styles when home button is clicked
+    $('#home-btn, #signin-home-btn').click(function() {
+        $('.modal').hide();
         $('.modal-backdrop').remove();
         $('body').removeAttr('style');
     });
-    $('#signin-home-btn').click(function() {
-        $('#signinModal').hide()
-        $('.modal-backdrop').remove();
-        $('body').removeAttr('style');
-    });
+
     // Scroll to top on button click
     $('#scrollTop').click(function() {
         $('html, body').animate({ scrollTop: 0 }, 800);
     });
-});
-$(document).ready(function() {
+
+    // Form submission with validation
     $('#formSubmit').click(function(e) {
         e.preventDefault();
 
@@ -78,23 +72,20 @@ $(document).ready(function() {
 class Validator {
     static nameValidation(name) {
         const nameRegex = /^[a-zA-Z\s]+$/;
-        if (nameRegex.test(name)) {
-            return 1;
-        } else {
+        if (!nameRegex.test(name)) {
             alert("Invalid name. Only letters and spaces are allowed.");
+            return 0;
         }
+        return 1;
     }
 
     static passwordValidation(password) {
         const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,}$/;
-        if (passwordRegex.test(password)) {
-            return 1;
-        } else {
-            alert(`Password requirements:
-                1. At least 6 characters long
-                2. At least one letter
-                3. At least one digit`);
+        if (!passwordRegex.test(password)) {
+            alert("Password requirements:\n1. At least 6 characters long\n2. At least one letter\n3. At least one digit");
+            return 0;
         }
+        return 1;
     }
 
     static emailValidation(email) {
@@ -104,27 +95,27 @@ class Validator {
 
     static phoneValidation(phone) {
         const phoneRegex = /^(?:\+20|0)?1[0125]\d{8}$/;
-        if (phoneRegex.test(phone)) {
-            return 1;
-        } else {
+        if (!phoneRegex.test(phone)) {
             alert("Invalid phone number. Ensure it's an Egyptian phone number.");
+            return 0;
         }
+        return 1;
     }
 
     static addressValidation(address) {
         const addressRegex = /^[a-zA-Z0-9\s,]+$/;
-        if (addressRegex.test(address)) {
-            return 1;
-        } else {
+        if (!addressRegex.test(address)) {
             alert("Invalid address. Avoid special characters.");
+            return 0;
         }
+        return 1;
     }
 
     static ageValidation(age) {
-        if (age >= 15 && age <= 120) {
-            return 1;
-        } else {
+        if (age < 15 || age > 120) {
             alert("Invalid age. Age must be between 15 and 120.");
+            return 0;
         }
+        return 1;
     }
 }
