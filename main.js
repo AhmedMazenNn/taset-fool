@@ -6,6 +6,18 @@ $(document).ready(function() {
             scrollTop: $($(this).attr('href')).offset().top
         }, 1000);
     });
+    $('.dropdown').click(function () {
+        if ($(window).width() <= 767) { // Ensure it only applies on small screens
+            $('.nav').toggleClass('show-nav');
+        }
+    });
+
+    // Reset display on window resize to avoid issues when switching screen sizes
+    $(window).resize(function () {
+        if ($(window).width() > 767) {
+            $('.nav').removeClass('show-nav'); // Ensure nav is always visible on large screens
+        }
+    });
 
     // Show or hide "Scroll to Top" button
     $(window).scroll(function() {

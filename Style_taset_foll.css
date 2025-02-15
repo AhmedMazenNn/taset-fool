@@ -178,11 +178,27 @@ ul {
 
 .header .nav {
     display: flex;
+    transition: all var(--main-transition);
 }
 
+.dropdown{
+    font-size: 20px;
+    display: none;
+    cursor: pointer;
+}
 @media (max-width:767px) {
     .nav {
         margin: auto;
+        display: none !important;
+        transition: all var(--main-transition);
+    }
+    
+    .show-nav {
+        display: block !important;
+        transition: all var(--main-transition);
+    }
+    .dropdown{
+        display: block;
     }
 }
 
